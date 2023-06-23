@@ -26,12 +26,7 @@ var spotLight1, spotLight2, lightHelperPoint1, lightHelperPoint2, light;
 
 function init() {
     scene = new THREE.Scene();
-    camera = new THREE.PerspectiveCamera(
-        75,
-        innerWidth / innerHeight,
-        0.1,
-        1000
-    );
+    camera = new THREE.PerspectiveCamera(75, innerWidth / innerHeight, 0.1, 1000);
 
     renderer = new THREE.WebGLRenderer({
         canvas: document.querySelector("canvas"),
@@ -43,9 +38,7 @@ function init() {
     document.body.appendChild(renderer.domElement);
 
     const textureLoader = new THREE.TextureLoader();
-    const texture = textureLoader.load(
-        "https://raw.githubusercontent.com/RadinX/tekstur/main/wood.jpg"
-    );
+    const texture = textureLoader.load("https://raw.githubusercontent.com/RadinX/tekstur/main/wood.jpg");
 
     // Membuat pencahayaan (lighting)
     light = new THREE.PointLight(0xffffff, 0.4, 300);
@@ -109,22 +102,19 @@ function init() {
         });
     });
 
-    loader.load(
-        "./src/red_8k_dsmc2_weapon_with_heavy_duty_tripod.glb",
-        function (gltf) {
-            cam = gltf.scene;
-            cam.position.y = 1.5;
-            cam.rotation.y = 1.5;
-            scene.add(cam);
+    loader.load("./src/red_8k_dsmc2_weapon_with_heavy_duty_tripod.glb", function (gltf) {
+        cam = gltf.scene;
+        cam.position.y = 1.5;
+        cam.rotation.y = 1.5;
+        scene.add(cam);
 
-            cam.traverse(function (child) {
-                if (child.isMesh) {
-                    child.castShadow = true; // Mengaktifkan bayangan dari mesh pada objek sofa
-                    child.receiveShadow = true; // Menerima bayangan pada mesh objek sofa
-                }
-            });
-        }
-    );
+        cam.traverse(function (child) {
+            if (child.isMesh) {
+                child.castShadow = true; // Mengaktifkan bayangan dari mesh pada objek sofa
+                child.receiveShadow = true; // Menerima bayangan pada mesh objek sofa
+            }
+        });
+    });
 
     loader.load("./src/simple_studio_light.glb", function (gltf) {
         softbox = gltf.scene;
